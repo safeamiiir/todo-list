@@ -10,7 +10,7 @@ export default function TodoList() {
 
   let header =
     state.todos.filter(task => task.state !== 0).length === 0 ? (
-      <h4>You did everything in list! <br/> now relax :)) </h4>
+      <h4>You did everything in list! <br /> now relax :)) </h4>
     ) : (
         <TodoHeader>
           <span className="float-right">{pluralize(state.todos.filter(task => task.state !== 0).length)}</span>

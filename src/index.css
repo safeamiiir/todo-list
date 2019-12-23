@@ -169,10 +169,11 @@ code {
 ul {
   font-size: 40px;
   color: white;
+  list-style-type: circle;
 }
 
 li {
-  display: flex;
+  display: list-item;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
 }
