@@ -5,42 +5,70 @@ import { TodoHeader } from "./TodoHeader";
 export default function TodoList() {
   const { state, dispatch } = useContext(Store);
 
-  const pluralize = count =>
-    count > 1 ? `There are ${count} todos.` : `There is ${count} todo.`;
+  const pluralize = (count, done) =>
+    count > 1 ? `There are ${count} todos` : `There is ${count} todo`;
 
   let header =
-    state.todos.length === 0 ? (
-      <h4>Yay! All todos are done! Take a rest!</h4>
+    state.todos.filter(task => task.state !== 0).length === 0 ? (
+      <h4>You did everything in list! <br /> now relax :)) </h4>
     ) : (
-      <TodoHeader>
-        <span className="float-right">{pluralize(state.todos.length)}</span>
-      </TodoHeader>
-    );
-  return (
-    <div className="row">
-      <div className="col-md-12">
-        <div className="row">
-          <div className="col-md-12">
-            <br />
-            {header}
+        <TodoHeader>
+          <div>
+            <h5 style={{ marginTop: 0 }}>Todo List</h5>
           </div>
+          <div>{pluralize(state.todos.filter(task => task.state !== 0).length)}</div>
+          <br />
+          <div>{`and ${state.todos.filter(task => task.state === 0).length === 0 ? 'nothing' : state.todos.filter(task => task.state === 0).length} completed`}</div>
+        </TodoHeader >
+      );
+  return (
+    <div>
+      <div className="container-style">
+        <div className="title-row">
+          <br />
+          {header}
         </div>
         <div className="row">
-          <div className="col-md-12">
+          <div>
             <ul className="list-group">
-              {state.todos.map(t => (
-                <li key={t} className="list-group-item">
-                  {t}
+              {state.todos.map(task => (
+                <li key={task.name} className="list-group-item">
+                  {task.state !== 0 &&
+                    <button
+                      className={task.state === 4 ? "unpin-button-style" : 'pin-button-style'}
+                      style={{ marginRight: 10 }}
+                      onClick={() => dispatch({ type: "PIN", payload: task })}
+                    >
+                      {task.state === 4 ? 'unpin' : 'pin'}
+                    </button>}
+                  {task.name}
                   <button
-                    className="float-right btn btn-danger btn-sm"
+                    className={task.state !== 0 ? "complete-button-style" : "completed-button-style"}
                     style={{ marginLeft: 10 }}
-                    onClick={() => dispatch({ type: "COMPLETE", payload: t })}
+                    onClick={() => dispatch({ type: "COMPLETE", payload: task.name })}
+                    disabled={task.state === 0}
                   >
-                    Complete
+                    {task.state === 0 ? 'Completed' : 'Complete'}
                   </button>
                 </li>
               ))}
             </ul>
+            {state.todos.length !== 0 &&
+              <button
+                className="remove-button-style"
+                style={{ marginLeft: 10 }}
+                onClick={() => dispatch({ type: "REMOVE_ALL" })}
+              >
+                Remove All
+            </button>}
+            {state.todos.filter(task => task.state === 0).length !== 0 &&
+              <button
+                className="remove-button-style"
+                style={{ marginLeft: 10 }}
+                onClick={() => dispatch({ type: "REMOVE_ALL_COMPLETED" })}
+              >
+                Remove All Completed
+            </button>}
           </div>
         </div>
       </div>

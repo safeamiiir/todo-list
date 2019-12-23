@@ -1,5 +1,4 @@
 import React, { useContext, useReducer } from "react";
-import ReactDOM from "react-dom";
 
 import Store from "./context";
 import reducer from "./reducer";
