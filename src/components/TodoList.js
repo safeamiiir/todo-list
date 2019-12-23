@@ -24,7 +24,7 @@ export default function TodoList() {
           {header}
         </div>
         <div className="row">
-          <div className="col-md-12">
+          <div>
             <ul className="list-group">
               {state.todos.map(task => (
                 <li key={task.name} className="list-group-item">

@@ -30,7 +30,7 @@ export default function TodoForm() {
 
   return (
     <div className="row">
-      <div className="col-md-12">
+      <div>
         <br />
         <div className="input-tasks">
           <input

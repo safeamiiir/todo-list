@@ -5,7 +5,7 @@ export const TodoHeader = (props) => (
     <div>
       <h5 style={{ margin: 0 }}>Todo List</h5>
     </div>
-    <div className="col-md-4">
+    <div>
       {props.children}
     </div>
   </div>
