@@ -32,9 +32,9 @@ export default function TodoForm() {
     <div className="row">
       <div className="col-md-12">
         <br />
-        <div className="input-group">
+        <div className="input-tasks">
           <input
-            className="form-control"
+            className="text-input-style"
             value={todo}
             autoFocus={true}
             placeholder="Enter new todo"
@@ -43,13 +43,14 @@ export default function TodoForm() {
           />
           <select
             onChange={e => handlePriorityChanges(e)}
+            className={'select-style'}
           >
             <option>3</option>
             <option>2</option>
             <option>1</option>
           </select>
           <div className="input-group-append">
-            <button className="btn btn-primary" onClick={handleTodoAdd}>
+            <button className="add-button-style" onClick={handleTodoAdd}>
               Add
             </button>
           </div>
