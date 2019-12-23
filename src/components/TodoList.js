@@ -5,15 +5,15 @@ import { TodoHeader } from "./TodoHeader";
 export default function TodoList() {
   const { state, dispatch } = useContext(Store);
 
-  const pluralize = count =>
-    count > 1 ? `There are ${count} todos.` : `There is ${count} todo.`;
+  const pluralize = (count, done) =>
+    count > 1 ? `There are ${count} todos. and ${done === 0 ? 'no one' : done} completed` : `There is ${count} todo. and ${done === 0 ? 'no one' : done} completed`;
 
   let header =
     state.todos.filter(task => task.state !== 0).length === 0 ? (
       <h4>You did everything in list! <br /> now relax :)) </h4>
     ) : (
         <TodoHeader>
-          <span className="float-right">{pluralize(state.todos.filter(task => task.state !== 0).length)}</span>
+          <span className="float-right">{pluralize(state.todos.filter(task => task.state !== 0).length, state.todos.filter(task => task.state === 0).length)}</span>
         </TodoHeader>
       );
   return (
