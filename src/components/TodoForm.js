@@ -45,9 +45,9 @@ export default function TodoForm() {
             onChange={e => handlePriorityChanges(e)}
             className={'select-style'}
           >
-            <option>3</option>
-            <option>2</option>
-            <option>1</option>
+            <option value={3}>Hight</option>
+            <option value={2}>Middle</option>
+            <option value={1}>Low</option>
           </select>
           <div className="input-group-append">
             <button className="add-button-style" onClick={handleTodoAdd}>
