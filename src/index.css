@@ -19,6 +19,15 @@ code {
   justify-content: center;
   align-items: center;
 }
+
+.column {
+  display: flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
 .col-md-12 {
   width: 100%;
 }
@@ -46,7 +55,7 @@ code {
   height: 50px;
   background: #2d7fff;
   color: white;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .add-button-style {
@@ -58,7 +67,7 @@ code {
   border-radius: 5px;
   text-transform: uppercase;
   cursor: pointer;
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .pin-button-style {
@@ -157,7 +166,8 @@ code {
 
 .title-row {
   width: 80%;
-  height: 80px;
+  height: 200px;
+  padding: 5px;
   color: #e8cbcb;
   background: #2b89af3d;
   border-radius: 10px;

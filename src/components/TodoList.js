@@ -6,15 +6,20 @@ export default function TodoList() {
   const { state, dispatch } = useContext(Store);
 
   const pluralize = (count, done) =>
-    count > 1 ? `There are ${count} todos. and ${done === 0 ? 'no one' : done} completed` : `There is ${count} todo. and ${done === 0 ? 'no one' : done} completed`;
+    count > 1 ? `There are ${count} todos` : `There is ${count} todo`;
 
   let header =
     state.todos.filter(task => task.state !== 0).length === 0 ? (
       <h4>You did everything in list! <br /> now relax :)) </h4>
     ) : (
         <TodoHeader>
-          <span className="float-right">{pluralize(state.todos.filter(task => task.state !== 0).length, state.todos.filter(task => task.state === 0).length)}</span>
-        </TodoHeader>
+          <div>
+            <h5 style={{ marginTop: 0 }}>Todo List</h5>
+          </div>
+          <div>{pluralize(state.todos.filter(task => task.state !== 0).length)}</div>
+          <br />
+          <div>{`and ${state.todos.filter(task => task.state === 0).length === 0 ? 'nothing' : state.todos.filter(task => task.state === 0).length} completed`}</div>
+        </TodoHeader >
       );
   return (
     <div>
