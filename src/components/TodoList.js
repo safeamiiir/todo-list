@@ -9,11 +9,11 @@ export default function TodoList() {
     count > 1 ? `There are ${count} todos.` : `There is ${count} todo.`;
 
   let header =
-    state.todos.length === 0 ? (
+    state.todos.filter(task => task.state !== 0).length === 0 ? (
       <h4>Yay! All todos are done! Take a rest!</h4>
     ) : (
         <TodoHeader>
-          <span className="float-right">{pluralize(state.todos.length)}</span>
+          <span className="float-right">{pluralize(state.todos.filter(task => task.state !== 0).length)}</span>
         </TodoHeader>
       );
   return (
@@ -45,7 +45,7 @@ export default function TodoList() {
                     onClick={() => dispatch({ type: "COMPLETE", payload: task.name })}
                     disabled={task.state === 0}
                   >
-                    Complete
+                    {task.state === 0 ? 'Completed' : 'Complete'}
                   </button>
                 </li>
               ))}
