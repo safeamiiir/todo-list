@@ -7,19 +7,26 @@ export default function TodoForm() {
   // Creating a local state to have currently writing
   // todo item that will be sent to the global store.
   const [todo, setTodo] = useState("");
+  const [priority, setPriority] = useState(3)
+
 
   function handleTodoChange(e) {
     setTodo(e.target.value);
   }
 
   function handleTodoAdd() {
-    dispatch({ type: "ADD_TODO", payload: todo });
+    dispatch({ type: "ADD_TODO", payload: { name: todo, state: priority } });
     setTodo("");
   }
 
   function handleSubmitForm(event) {
     if (event.keyCode === 13) handleTodoAdd();
   }
+
+  function handlePriorityChanges(e) {
+    setPriority(e.target.value);
+  }
+
 
   return (
     <div className="row">
@@ -34,6 +41,13 @@ export default function TodoForm() {
             onKeyUp={handleSubmitForm}
             onChange={handleTodoChange}
           />
+          <select
+            onChange={e => handlePriorityChanges(e)}
+          >
+            <option>3</option>
+            <option>2</option>
+            <option>1</option>
+          </select>
           <div className="input-group-append">
             <button className="btn btn-primary" onClick={handleTodoAdd}>
               Add

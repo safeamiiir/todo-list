@@ -12,10 +12,10 @@ export default function TodoList() {
     state.todos.length === 0 ? (
       <h4>Yay! All todos are done! Take a rest!</h4>
     ) : (
-      <TodoHeader>
-        <span className="float-right">{pluralize(state.todos.length)}</span>
-      </TodoHeader>
-    );
+        <TodoHeader>
+          <span className="float-right">{pluralize(state.todos.length)}</span>
+        </TodoHeader>
+      );
   return (
     <div className="row">
       <div className="col-md-12">
@@ -28,13 +28,22 @@ export default function TodoList() {
         <div className="row">
           <div className="col-md-12">
             <ul className="list-group">
-              {state.todos.map(t => (
-                <li key={t} className="list-group-item">
-                  {t}
+              {state.todos.map(task => (
+                <li key={task.name} className="list-group-item">
+                  {task.state !== 0 &&
+                    <button
+                      className="float-right btn btn-danger btn-sm"
+                      style={{ marginLeft: 10 }}
+                      onClick={() => dispatch({ type: "PIN", payload: task })}
+                    >
+                      {task.state === 4 ? 'unpin' : 'pin'}
+                    </button>}
+                  {task.name}
                   <button
                     className="float-right btn btn-danger btn-sm"
                     style={{ marginLeft: 10 }}
-                    onClick={() => dispatch({ type: "COMPLETE", payload: t })}
+                    onClick={() => dispatch({ type: "COMPLETE", payload: task.name })}
+                    disabled={task.state === 0}
                   >
                     Complete
                   </button>
