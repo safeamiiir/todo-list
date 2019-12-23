@@ -1,5 +1,15 @@
 export default function reducer(state, action) {
   switch (action.type) {
+    case "REMOVE_ALL":
+      return ({
+        ...state,
+        todos: []
+      })
+    case "REMOVE_ALL_COMPLETED":
+      return ({
+        ...state,
+        todos: [...state.todos.filter(task => task.state !== 0)]
+      })
     case "ADD_TODO":
       // return current state if empty
       if (!action.payload) {
@@ -14,10 +24,6 @@ export default function reducer(state, action) {
         return state;
       } //FIXME: problem in priority handling when some of them are equal
       return handleSortPriorities(state, action.payload)
-    // return {
-    // ...state,
-    // todos: [...state.todos, action.payload]
-    // };
     case "COMPLETE":
       return handleCompletedTodos(state, action.payload)
     case "PIN":

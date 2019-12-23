@@ -50,6 +50,22 @@ export default function TodoList() {
                 </li>
               ))}
             </ul>
+            {state.todos.length !== 0 &&
+              <button
+                className="float-right btn btn-danger btn-sm"
+                style={{ marginLeft: 10 }}
+                onClick={() => dispatch({ type: "REMOVE_ALL" })}
+              >
+                Remove All
+            </button>}
+            {state.todos.filter(task => task.state === 0).length !== 0 &&
+              <button
+                className="float-right btn btn-danger btn-sm"
+                style={{ marginLeft: 10 }}
+                onClick={() => dispatch({ type: "REMOVE_ALL_COMPLETED" })}
+              >
+                Remove All Completed
+            </button>}
           </div>
         </div>
       </div>
