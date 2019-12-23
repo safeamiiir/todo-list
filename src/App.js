@@ -1,25 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useContext, useReducer } from "react";
+import ReactDOM from "react-dom";
+
+import Store from "./context";
+import reducer from "./reducer";
+
+import { usePersistedContext, usePersistedReducer } from "./usePersist";
+
+import TodoList from "./components/TodoList";
+import TodoForm from "./components/TodoForm";
 
 function App() {
+  // create a global store to store the state
+  const globalStore = usePersistedContext(useContext(Store), "state");
+
+  // `todos` will be a state manager to manage state.
+  const [state, dispatch] = usePersistedReducer(
+    useReducer(reducer, globalStore),
+    "state" // The localStorage key
+  );
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Store.Provider value={{ state, dispatch }}>
+      <TodoForm />
+      <TodoList />
+    </Store.Provider>
   );
 }
 
