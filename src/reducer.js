@@ -1,35 +1,35 @@
 export default function reducer(state, action) {
   switch (action.type) {
+
+    case "ADD_TODO":
+      // return current state if empty
+      if (!action.payload.name.trim()) {
+        return state;
+      }
+      // return current state if you write duplicate
+      if (checkDuplicateInObject('name', [...state.todos, action.payload]))
+        return state
+      return handleSortPriorities(state, action.payload)//FIXME: problem in priority handling when some of them are equal
+
+    case "COMPLETE":
+      return handleCompletedTodos(state, action.payload)
+
+    case "PIN":
+      return handlePinTodos(state, action.payload)
+    default:
+      return state;
+
     case "REMOVE_ALL":
       return ({
         ...state,
         todos: []
       })
+
     case "REMOVE_ALL_COMPLETED":
       return ({
         ...state,
         todos: [...state.todos.filter(task => task.state !== 0)]
       })
-    case "ADD_TODO":
-      // return current state if empty
-      if (!action.payload) {
-        return state;
-      }
-      // return current state if duplicate
-      var valueArr = state.todos.map(function (item) { return item.name });
-      var isDuplicate = valueArr.some(function (item, idx) {
-        return valueArr.indexOf(item) !== idx
-      });
-      if (isDuplicate) {
-        return state;
-      } //FIXME: problem in priority handling when some of them are equal
-      return handleSortPriorities(state, action.payload)
-    case "COMPLETE":
-      return handleCompletedTodos(state, action.payload)
-    case "PIN":
-      return handlePinTodos(state, action.payload)
-    default:
-      return state;
   }
 }
 
@@ -66,3 +66,23 @@ function handleSortPriorities(state, payload) {
   newTodos.todos.sort((a, b) => (Number(a.state) < Number(b.state)) ? 1 : -1)
   return newTodos
 };
+
+function checkDuplicateInObject(propertyName, inputArray) {
+  var seenDuplicate = false,
+    testObject = {};
+
+  inputArray.map(function (item) {
+    var itemPropertyName = item[propertyName];
+    if (itemPropertyName in testObject) {
+      testObject[itemPropertyName].duplicate = true;
+      item.duplicate = true;
+      seenDuplicate = true;
+    }
+    else {
+      testObject[itemPropertyName] = item;
+      delete item.duplicate;
+    }
+  });
+
+  return seenDuplicate;
+}
