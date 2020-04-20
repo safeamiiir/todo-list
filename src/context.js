@@ -7,15 +7,18 @@ const Store = React.createContext({
     // Initial Data
     {
       name: "Do Yektanet tasks",
-      state: 3
+      state: 3,
+      createdTime: new Date().getTime()
     },
     {
       name: "Set time for interview",
-      state: 2
+      state: 2,
+      createdTime: new Date().getTime()
     },
     {
       name: "talk about financial stuff :D",
-      state: 1
+      state: 1,
+      createdTime: new Date().getTime()
     }
   ]
 });

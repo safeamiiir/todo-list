@@ -15,7 +15,7 @@ export default function TodoForm() {
   }
 
   function handleTodoAdd() {
-    dispatch({ type: "ADD_TODO", payload: { name: todo, state: priority } });
+    dispatch({ type: "ADD_TODO", payload: { name: todo, state: priority, createdTime: new Date().getTime() } });
     setTodo("");
   }
 
