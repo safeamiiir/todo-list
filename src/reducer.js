@@ -47,14 +47,14 @@ function handlePinTodos(state, payload) {
       ...state,
       todos: [...state.todos.filter(task => task.name !== payload.name), { name: payload.name, state: payload.lastState, createdTime: payload.createdTime }]
     }
-    newTodos.todos.sort( (a, b) => b.createdTime - a.createdTime ).sort((a, b) => (Number(a.state) < Number(b.state)) ? 1 : -1)
+    newTodos.todos.sort( (a, b) => a.createdTime - b.createdTime ).sort((a, b) => (Number(a.state) < Number(b.state)) ? 1 : -1)
     return newTodos
   } else {
     var newTodos = {
       ...state,
       todos: [...state.todos.filter(task => task.name !== payload.name), { name: payload.name, state: 4, lastState: payload.state, createdTime: payload.createdTime }]
     }
-    newTodos.todos.sort( (a, b) => b.createdTime - a.createdTime ).sort((a, b) => (Number(a.state) < Number(b.state)) ? 1 : -1)
+    newTodos.todos.sort( (a, b) => a.createdTime - b.createdTime ).sort((a, b) => (Number(a.state) < Number(b.state)) ? 1 : -1)
     return newTodos
   }
 };
@@ -64,7 +64,7 @@ function handleSortPriorities(state, payload) {
     ...state,
     todos: [...state.todos, payload]
   }
-  newTodos.todos.sort( (a, b) => b.createdTime - a.createdTime ).sort((a, b) => (Number(a.state) < Number(b.state)) ? 1 : -1)
+  newTodos.todos.sort( (a, b) => a.createdTime - b.createdTime ).sort((a, b) => (Number(a.state) < Number(b.state)) ? 1 : -1)
   return newTodos
 };
 
